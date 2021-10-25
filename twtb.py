@@ -8,7 +8,7 @@ driver.get('https://web-vpn.sues.edu.cn')
 # 将窗口最大化
 driver.maximize_window()
   
-pwd = ''
+
 #browser.find_element_by_xpath('/html/body/div[1]/div/div[4]/span/a[1]').click()
 # 延时2秒，以便网页加载所有元素，避免之后找不到对应的元素
 time.sleep(2)
@@ -20,7 +20,7 @@ time.sleep(2)
 # acc and pwd (自己写)
 
 accounts = ''
-
+pwd = ''
 
 
 # Find UserName and pwd, login
