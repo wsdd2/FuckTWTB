@@ -11,12 +11,14 @@ File_Path = 'D:/Auto_Temp'
 acc_file = 'acc.txt'
 pwd_file = 'pwd.txt'
 
+#请每行保存一个人的账号或者密码，且顺序一一对应
+
 with open(join(File_Path,acc_file), 'r+', encoding='utf-8') as f_acc:
-    acc_ar = [i[:].split(',') for i in f_acc.readlines()]
+    acc_ar = f_acc.read().splitlines()
 
 
 with open(join(File_Path,pwd_file), 'r+', encoding='utf-8') as f_pwd:
-    pwd_ar = [i[:].split(',') for i in f_pwd.readlines()]
+    pwd_ar = f_pwd.read().splitlines()
 
 
 for i in range(len(acc_ar)):
