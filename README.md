@@ -1,4 +1,5 @@
 # FuckTWTB
+## 自动体温填报小助手
 A small python script for auto reporting body temperature of SUES :P
 <br>
 向形式主义说“不”
