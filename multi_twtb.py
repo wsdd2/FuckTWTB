@@ -2,7 +2,7 @@
 import time
 from selenium import webdriver
 import numpy as np 
-
+import random
 import os
 from os.path import join
 #read files
@@ -65,8 +65,8 @@ for i in range(len(acc_ar)):
 
     # randomly choose a temperature
 
-    temp_choice = ['35.5', '35.6', '35.7', '35.8', '35.9', '36.0', '36.1', '36.2', '36.3' ,'36.4', '36.5', '36.6','36.7']
-    temprature = np.random.choice(temp_choice,size=1,replace=False)
+    a = random.uniform(35,37)
+    temprature = round(a,1)
 
     print(temprature)
 
