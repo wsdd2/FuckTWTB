@@ -1,1 +1,1 @@
-python multi_twtb.py
+python D:\Auto_Temp\multi_twtb.py
