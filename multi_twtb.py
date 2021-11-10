@@ -55,7 +55,7 @@ for i in range(len(acc_ar)):
     time.sleep(2)
     # 点击健康填报信息
     # 需在最近访问中置顶
-    driver.find_element_by_xpath("//*[@id='group-4']/div[2]/div/div[2]/p[1]").click()
+    driver.find_element_by_xpath("/html/body/div/div/div/div/div[3]/div/div[2]/div/div[1]/div/div[1]/div/div[1]/a/div[2]/div").click()
     time.sleep(5)
 
     handles = driver.window_handles
