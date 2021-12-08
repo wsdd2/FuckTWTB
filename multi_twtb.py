@@ -2,16 +2,26 @@
 import time
 from selenium import webdriver
 import numpy as np 
-import random
+import ddddocr as docr
+import urllib
 import os
 from os.path import join
 #read files
 
+
+import PIL 
+from PIL import Image
+
+import random
+
+
+
 File_Path = 'D:/Auto_Temp'
 acc_file = 'acc.txt'
 pwd_file = 'pwd.txt'
-
-#请每行保存一个人的账号或者密码，且顺序一一对应
+Digit_Path = '/Digit_Temp'
+Digit_Xpath = "//*[@id='fm1']/div[4]/img"
+Digit_Filename = '/digit.png'
 
 with open(join(File_Path,acc_file), 'r+', encoding='utf-8') as f_acc:
     acc_ar = f_acc.read().splitlines()
@@ -25,9 +35,10 @@ for i in range(len(acc_ar)):
     
     # 模拟浏览器打开网站
     driver = webdriver.Chrome()
+    #options.add_argument('--log-level=3')
     driver.get('https://web-vpn.sues.edu.cn')
     # 将窗口最大化
-    driver.maximize_window()
+    # driver.maximize_window()
 
 
     #browser.find_element_by_xpath('/html/body/div[1]/div/div[4]/span/a[1]').click()
@@ -50,13 +61,32 @@ for i in range(len(acc_ar)):
     "//*[@id='username']").send_keys(accounts)
     driver.find_element_by_xpath(
     "//*[@id='password']").send_keys(pwd)
+    # 验证码
+    ## locate Digit
+    #img = driver.find_element_by_xpath(Digit_Xpath)
+    #src = img.get_attribute('src')
+    ## Download Digit image
+    Digit_save_path = join(File_Path, Digit_Path)
+    with open(join(Digit_save_path, Digit_Filename), 'wb+') as d:
+        d.write(driver.find_element_by_xpath(Digit_Xpath).screenshot_as_png)
+    
+    #urllib.urlretrieve(src, Digit_Filename)
+    ## ddddocr recognize numbers
+    ocr = docr.DdddOcr()
+    with open(join(Digit_save_path, Digit_Filename),'rb') as d:
+        img_bytes = d.read()
+    res = ocr.classification(img_bytes)
+
+
+
+    driver.find_element_by_xpath("//*[@id='authcode']").send_keys(str(res))
     # 在输入用户名和密码之后,点击登陆按钮
     driver.find_element_by_xpath("//*[@id='passbutton']").click()
     time.sleep(2)
     # 点击健康填报信息
     # 需在最近访问中置顶
-    driver.find_element_by_xpath("/html/body/div/div/div/div/div[3]/div/div[2]/div/div[1]/div/div[1]/div/div[1]/a/div[2]/div").click()
-    time.sleep(5)
+    driver.find_element_by_xpath("//*[@id='group-4']/div[2]/div/div[2]/p[2]").click()
+    time.sleep(3)
 
     handles = driver.window_handles
     #获取当前页句柄
@@ -79,7 +109,9 @@ for i in range(len(acc_ar)):
 
     # proceed 
     print("学号：{}\n体温填报成功".format(accounts))
-    time.sleep(5)
+    time.sleep(3)
+    # 删除验证码图片
+    os.remove(join(Digit_save_path, Digit_Filename))
     # quit browser
     driver.quit()
 
