@@ -6,7 +6,7 @@ A small python script for auto reporting body temperature of SUES :P
 <br>
 已更新验证码识别功能
 <br>
-# 本地部署方法：
+## 本地部署方法：
 <br>
 1、安装好Python3.x环境<br>
 2、pip install selenium, numpy<br>
