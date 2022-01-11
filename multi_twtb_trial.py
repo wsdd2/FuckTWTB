@@ -229,9 +229,9 @@ for i in range(len(acc_ar)):
     print("学号：{}\n体温填报成功".format(accounts))
     time.sleep(3)
     # 删除验证码图片
-    #os.remove(join(Digit_save_path, Digit_Filename))
-    #os.remove(join(Digit_save_path, knob_Filename))
-    #os.remove(join(Digit_save_path, slider_Filename))
+    os.remove(join(Digit_save_path, Digit_Filename))
+    os.remove(join(Digit_save_path, knob_Filename))
+    os.remove(join(Digit_save_path, slider_Filename))
     print("cache images cleaned!")
     time.sleep(2)
     # quit browser
