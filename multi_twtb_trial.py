@@ -134,10 +134,10 @@ for i in range(len(acc_ar)):
     # 处理滑动验证码
     # offset = 0 ## offset指拖动距离，需要传参
     # 滑块Xpath：//*[@id='layui-layer100001']/div/div/div/div[2]/div[2]/div[2]
-    knob_xpath = "//*[@id='layui-layer100001']/div/div/div/div[2]/div[2]/div[2]"
-    knob_image_xpath = "//*[@id='layui-layer100001']/div/div"
-    small_slider_xpath = "//*[@id='layui-layer100001']/div/div/div/div[1]/img[2]"
-    knob_image_class = "ap-slider-bg"
+    knob_xpath = "//*[@id='layui-layer100001']/div/div/div/div[2]/div[2]/div[2]" # 定位滑块xpath
+    knob_image_xpath = "//*[@id='layui-layer100001']/div/div" # 定位验证码完整图片（包含三个拼图）的xpath
+    small_slider_xpath = "//*[@id='layui-layer100001']/div/div/div/div[1]/img[2]" # 定位需匹配的小拼图xpath
+    knob_image_class = "ap-slider-bg" # 验证码图片（仅有两个拼图，不含需匹配的拼图）class name
 
     '''
     browser.save_screenshot('screenshot.png')
@@ -165,7 +165,7 @@ for i in range(len(acc_ar)):
     #img = Image.open(io.BytesIO(file.read()))
     with open(join(Digit_save_path, knob_Filename), 'rb') as file, Image.open(io.BytesIO(file.read())) as t:
         target_img = t
-    target_img = np.asarray(PIL.Image.open(join(Digit_save_path, knob_Filename)))
+    target_img = np.asarray(PIL.Image.open(join(Digit_save_path, knob_Filename))) # 通过PIL读取可以保证读出来的图片是CV_8UC3格式，方便后续处理
     
     with open(join(Digit_save_path, slider_Filename), 'wb+') as d: # 保存小滑块图片，以进行模板匹配
         d.write(driver.find_element_by_xpath(small_slider_xpath).screenshot_as_png)
